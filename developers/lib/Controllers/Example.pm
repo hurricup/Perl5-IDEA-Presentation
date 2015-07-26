@@ -25,6 +25,13 @@ sub dispatch
         Models::Position::Developer::Perl5->new()
     );
 
+
+    $department->add_employee($new_employee)->set_head($new_employee);
+
+    # multiple declaration annotations
+    say $department->TO_JSON;
+
+
     # multiple languages support in heredoc
     my $just_html = <<'HTML';
 <body><html>
@@ -32,16 +39,44 @@ Heredoc markers mean something!
 </html></body>
 HTML
 
-    $department->add_employee($new_employee)->set_head($new_employee);
+    my $string = 'sometext';
 
-    # multiple declaration annotations
-    say $department->TO_JSON;
+    $string =~ s/
+        just            # not a comment
+        regex
+        example
+        /
+        replacement
+        /;
+
+    $string =~ s/
+        just            # now a comment
+        regex
+        example
+        /
+        replacement
+        /x;
+
+    $string =~ s/
+        just            # now a comment
+        regex
+        example
+        /
+        print "Here is the code";
+        /xe;
+
+
 }
 
 =head3 PLANS
 
+For releasing:
     Imported subs support and resolution
-    Constants support
+    Constants support and resolution
+    Variables interpolation in strings
+    Variables interpolation in constants
+
+After release:
     XS sources support
     Framewoks and significant modules support: Mojo, Moo, Class::Acessor, etc.
     Integration with perl well-known facilities such as CPAN, Perl::Critic, Perl::Tidy
@@ -50,7 +85,7 @@ HTML
     More heuristic to determine variable type. For example on assignment, or array/hash ref.
     More code inspections, intentions and quickfixes: missign imports, double imports, a lot of ideas.
 
-    I belive this process is endless as a Perl itself...
+I belive this process is endless as a Perl itself...
 
 =cut
 
