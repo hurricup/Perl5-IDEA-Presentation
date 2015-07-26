@@ -1,7 +1,9 @@
 package Models::Employee;
 use strict;
 use warnings FATAL => 'all';
-use Exception;  # you can navigate to imported modules by ctrl+click
+use parent qw/Interface::Serializable Interface::Storable/; # provides JSON serialization and DB reading/writing
+
+use Exception;                  # you can navigate to imported modules by ctrl+click
 
 # class represents abstract employee
 
@@ -13,6 +15,12 @@ sub new
         name => $name,
         position => $kwargs{position}
     }, $proto;
+}
+
+sub get_id
+{
+    my ($self) = @_;
+    return $self->{id};
 }
 
 #@returns Models::Position      # return value annotation used to resolve methods and autocompletion
@@ -62,5 +70,18 @@ sub set_salary
     return $self;
 }
 
+#@override  # this annotation marks that sub is overriding something from the parent class, will help IDEA to keep your code consistent (NYI)
+#@method
+sub db_store    # method overrides one from Interface::Storable
+{
+    ...; # database writing should be here
+}
+
+#@override
+#@method
+sub db_fetch    # method overrides one from Interface::Storable
+{
+    ...; # database reading should be here
+}
 
 1;
