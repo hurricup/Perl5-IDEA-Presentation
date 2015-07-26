@@ -1,7 +1,7 @@
 package Models::Employee;
 use strict;
 use warnings FATAL => 'all';
-use parent qw/Interface::Serializable Interface::Storable/; # provides JSON serialization and DB reading/writing
+use parent qw/Models::Base/;
 
 use Exception;                  # you can navigate to imported modules by ctrl+click
 
@@ -17,12 +17,6 @@ sub new
     }, $proto;
 }
 
-sub get_id
-{
-    my ($self) = @_;
-    return $self->{id};
-}
-
 #@returns Models::Position      # return value annotation used to resolve methods and autocompletion
 sub get_position
 {
@@ -30,6 +24,7 @@ sub get_position
     return $self->{position};
 }
 
+#@returns Models::Employee
 sub set_position
 {
     my ($self, $new_position, $unused_field) = @_;  # unused field is annotated as unused
@@ -51,18 +46,13 @@ sub some_deprecated_method
     ...;        # Ellipsis statement is the same as to-do or fix-me
 }
 
-sub get_name
-{
-    my ($self) = @_;
-    return $self->{name};
-}
-
 sub get_salary
 {
     my ($self) = @_;
     return $self->{salary};
 }
 
+#@returns Models::Employee
 sub set_salary
 {
     my ($self, $new_salary) = @_;
@@ -79,8 +69,10 @@ sub db_store    # method overrides one from Interface::Storable
 
 #@override
 #@method
+#@returns Models::Employee
 sub db_fetch    # method overrides one from Interface::Storable
 {
+    my ($proto, $id) = @_;
     ...; # database reading should be here
 }
 

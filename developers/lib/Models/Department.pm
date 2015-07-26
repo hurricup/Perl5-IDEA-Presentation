@@ -1,5 +1,5 @@
 package Models::Department;
-use parent qw/Interface::Serializable Interface::Storable/;
+use parent qw/Models::Base/;
 use strict;
 use warnings FATAL => 'all';
 
@@ -15,18 +15,6 @@ sub new
     }, $proto;
 }
 
-sub get_id
-{
-    my ($self) = @_;
-    return $self->{id};
-}
-
-sub set_id
-{
-    my ($self, $new_id) = @_;
-    $self->{id} = $new_id;
-    return $self;
-}
 
 #@returns Models::Employee  # return value type
 sub get_head
@@ -66,6 +54,7 @@ sub contains_employee
     return 0;
 }
 
+#@returns Models::Department
 sub add_employee
 {
     my ($self, $employee) = @_;
@@ -103,6 +92,7 @@ sub db_store    # method overrides one from Interface::Storable
 
 #@override
 #@method
+#@returns Models::Department
 sub db_fetch    # method overrides one from Interface::Storable
 {
     ...; # database reading should be here
