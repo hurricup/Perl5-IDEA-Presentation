@@ -38,4 +38,22 @@ HTML
     say $department->TO_JSON;
 }
 
+=head3 PLANS
+
+    Imported subs support and resolution
+    Constants support
+    XS sources support
+    Framewoks and significant modules support: Mojo, Moo, Class::Acessor, etc.
+    Integration with perl well-known facilities such as CPAN, Perl::Critic, Perl::Tidy
+    More IDEA features
+    More annotations, like #@returns PROTO
+    More heuristic to determine variable type. For example on assignment, or array/hash ref.
+    More code inspections, intentions and quickfixes: missign imports, double imports, a lot of ideas.
+
+    I belive this process is endless as a Perl itself...
+
+=cut
+
+
+
 1;
