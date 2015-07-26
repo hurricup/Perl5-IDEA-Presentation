@@ -25,8 +25,16 @@ sub dispatch
         Models::Position::Developer::Perl5->new()
     );
 
+    # multiple languages support in heredoc
+    my $just_html = <<'HTML';
+<body><html>
+Heredoc markers mean something!
+</html></body>
+HTML
+
     $department->add_employee($new_employee)->set_head($new_employee);
 
+    # multiple declaration annotations
     say $department->TO_JSON;
 }
 
